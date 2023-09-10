@@ -1,0 +1,78 @@
+public partial class Form5 : Form
+    {
+
+
+        [Serializable]
+        public class SV
+        {
+            public string masv;
+            public string hoten;
+            public string sdt;
+            public float diemtoan;
+            public float diemvan;
+            public SV(string ma, string ht, string so, float dtoan, float dvan)
+            {
+                masv = ma;
+                hoten = ht;
+                sdt = so;
+                diemtoan = dtoan;
+                diemvan = dvan;
+            }
+
+            public SV()
+            {
+                masv = "";
+                hoten = "";
+                sdt = "";
+                diemtoan = 0;
+                diemvan = 0;
+
+            }
+
+            public void Nhap()
+            {
+                Console.Write("Nhap ma sv:");
+                masv = Convert.ToString(Console.ReadLine());
+                Console.WriteLine("Nhap ho tenL: ");
+                hoten = Convert.ToString(Console.ReadLine());
+                Console.WriteLine("Nhap so dien thoai: ");
+                sdt = Convert.ToString(Console.ReadLine());
+                Console.WriteLine("Nhap diem toan: ");
+                diemtoan = Convert.ToSingle(Console.ReadLine());
+                Console.WriteLine("Nhap diem van: ");
+                diemvan = Convert.ToSingle(Console.ReadLine());
+            }
+        }
+
+        public Form5()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SV[] mangSV;
+            mangSV = new SV[10];
+
+            for (int i = 0; i < mangSV.Length; i++)
+            {
+                mangSV[i] = new SV();
+                mangSV[i].Nhap();
+            }
+
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream("input.txt", FileMode.Create, FileAccess.Write);
+            formatter.Serialize(stream, mangSV);
+            stream.Close();
+
+            /*OpenFileDialog ofd = new OpenFileDialog();
+            ofd.ShowDialog();
+            FileStream fs = new FileStream(ofd.FileName, FileMode.OpenOrCreate);
+            StreamReader sr = new StreamReader(fs);
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            FileStream fileName = File.Create("..\\input.txt");
+            binaryFormatter.Serialize(fs, mangSV);*/
+
+
+
+        }
